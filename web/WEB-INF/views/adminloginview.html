@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>『诊所管理系统』后台管理</title>
+    <link href="css/admin_login.css" rel="stylesheet" type="text/css" />
+    <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+</head>
+<body>
+<div class="admin_login_wrap">
+    <h1>后台管理</h1>
+    <div class="adming_login_border">
+        <div class="admin_input">
+
+                <ul class="admin_items">
+                    <li>
+                        <label for="adminusername">用户名：</label>
+                        <input type="text" name="username" value="" id="adminusername" size="36" class="admin_input_style" />
+                    </li>
+                    <li>
+                        <label for="adminpassword">密码：</label>
+                        <input type="password" name="pwd" value="" id="adminpassword" size="36" class="admin_input_style" />
+                    </li>
+                    <li>
+                        <input id="bu" type="submit" tabindex="3" value="登录" class="btn btn-primary" />
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <p class="admin_copyright"><a tabindex="5" href="/index">返回</a>      &copy; 2023 Come On </p>
+</div>
+</body>
+</html>
+
+<script>
+    $("#bu").click(function (){
+        let adminusername=document.getElementById("adminusername").value;
+        let adminpassword=document.getElementById("adminpassword").value;
+        let user={};
+        user.username=adminusername;
+        user.password=adminpassword;
+        console.log(user);
+        $.ajax({
+            url:"/adminlogin",
+            type:"POST",
+            dataType:"text",
+            contentType:"application/json",
+            data:JSON.stringify(user),
+            success:function (e){
+                localStorage.setItem("admintoken",e);
+                let ex=new Date();
+                ex.setTime(ex.getTime()+(24 * 60 * 60 * 1000));  // 设置过期时间为1天
+
+                document.cookie = "admintoken=" + e + "; expires=" + ex.toUTCString() + "; path=/";//存入cookie
+
+                window.location.href="/adminmain";
+
+            },
+            error: function (e){
+                alert('管理员账号密码错误');
+            }
+        })
+    })
+</script>

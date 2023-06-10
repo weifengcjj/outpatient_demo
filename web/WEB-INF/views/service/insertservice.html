@@ -1,0 +1,118 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>预约业务</title>
+    <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <script type="text/javascript" src="js/libs/modernizr.min.js"></script>
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="/main" class="navbar-brand">预约业务</a></h1>
+            <ul class="navbar-list clearfix">
+                <li><a class="on" href="/main">首页</a></li>
+            </ul>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <li><a href="/personalMessage">个人信息</a></li>
+                <li><a href="/quit">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                    <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
+                    <ul class="sub-menu">
+                        <li><a href="/insertservice"><i class="icon-font">&#xe008;</i>预约业务</a></li>
+                        <li><a href="/selectorderone"><i class="icon-font">&#xe008;</i>个人预约</a></li>
+                        <li><a href="/prescriptionone"><i class="icon-font">&#xe008;</i>个人药方单</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font"></i><a href="/main">首页</a><span class="crumb-step">&gt;</span><span>预约业务</span></div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-content">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                        <tr>
+                            <th width="120"><i class="require-red">*</i>科室部分分类：</th>
+                            <td>
+                                <select name="colId" id="type" class="required employee">
+                                    <option th:each="type : ${alltype}" th:value="${type.getId()}" th:text="${type.getType()}"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><i class="require-red">*</i>病情简述：</th>
+                            <td>
+                                <input class="common-text required" id="goods" name="title" size="50" value="" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>
+                                <input class="btn btn-primary btn6 mr10" value="提交" id="sub">
+                                <input class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
+<script>
+
+
+    $("#sub").click(function (){
+
+        let typeid=document.getElementById("type").value;//typeid
+
+        let type = $("#type").find("option:selected").text();//科室
+
+        let goods=document.getElementById("goods").value;//病情简述
+        let order={};
+        order.type=type;
+        order.typeid=typeid;
+        order.goods=goods;
+        console.log(order);
+        $.ajax({
+            url:"/insertorder",
+            type:"POST",
+            dataType:"json",
+            contentType:"application/json",
+            data:JSON.stringify(order),
+            success:function (e){
+                console.log(e)
+                alert(e.message);
+                window.location.href="/main";
+
+            },
+            error: function (e){
+                alert('创建订单失败');
+            }
+        })
+    })
+</script>

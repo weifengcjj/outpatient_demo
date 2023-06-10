@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.Dao.UserDao">
+
+    <resultMap id="userResultMap" type="com.demo.Model.User">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="time" column="time" javaType="java.util.Date" jdbcType="TIMESTAMP"/>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+    </resultMap>
+
+<!--    用户登录-->
+    <select id="login" parameterType="java.util.Map"  resultType="com.demo.Model.User">
+        SELECT id,username,password,time,name,sex,age FROM `user` where username=#{username} and `password`=#{password}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="user.id">
+        INSERT INTO user(username,password,time,name,sex,age)
+        VALUES (#{user.username}, #{user.password}, #{user.time}, #{user.name}, #{user.sex},#{user.age})
+    </insert>
+
+<!--    管理员登录-->
+    <select id="adminlogin"  parameterType="java.util.Map" resultType="com.demo.Model.Admin">
+        SELECT id,username,password FROM `admin` where username=#{username} and `password`=#{password}
+    </select>
+
+
+<!--    医生登录-->
+    <resultMap id="wei1" type="com.demo.Model.Doctor">
+        <result property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+        <result property="title" column="title"></result>
+        <association property="type" resultMap="typemap"></association>
+    </resultMap>
+    <resultMap id="typemap" type="com.demo.Model.Type">
+        <id property="id" column="tid"></id>
+        <result property="type" column="type"></result>
+    </resultMap>
+    <select id="doctorlogin" parameterType="java.util.Map" resultType="com.demo.Model.Doctor" resultMap="wei1">
+        SELECT d.id,d.username,d.password,d.sex,d.age,d.name,title,t.id as tid,t.type
+        FROM `doctor` d
+        INNER JOIN type t
+        on d.type=t.id
+        where d.username=#{username} and d.`password`=#{password}
+    </select>
+
+
+
+</mapper>

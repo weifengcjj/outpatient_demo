@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.Dao.ServiceDao">
+
+    <resultMap id="wei" type="com.demo.Model.Type">
+        <id column="id" property="id"></id>
+        <result column="type" property="type"></result>
+    </resultMap>
+    <!--拿到所有科室-->
+    <select id="alltype" resultMap="wei">
+    select id,type from type
+    </select>
+
+    <!--    创建订单-->
+    <insert id="insertorder" parameterType="com.demo.Model.Order" useGeneratedKeys="true" keyProperty="order.id">
+        INSERT INTO orders(uid,typeid,goods,time,orderid,flag)
+        VALUES ( #{order.user.id}, #{order.type.id},#{order.goods},#{order.time},#{order.orderid},#{order.flag.id})
+    </insert>
+
+    <!--    查询个人订单-->
+    <resultMap id="wei1" type="com.demo.Model.Order">
+        <id property="id" column="id"></id>
+        <result property="goods" column="goods"></result>
+        <result property="time" column="time"></result>
+        <result property="orderid" column="orderid"></result>
+        <association property="type" resultMap="type1"></association>
+        <association property="user" resultMap="user1"></association>
+        <association property="flag" resultMap="flag1"></association>
+    </resultMap>
+    <resultMap id="type1" type="com.demo.Model.Type">
+        <id property="id" column="tid"></id>
+        <result property="type" column="type"></result>
+    </resultMap>
+    <resultMap id="user1" type="com.demo.Model.User">
+        <id property="id" column="uid"></id>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="age" column="age"></result>
+    </resultMap>
+    <resultMap id="flag1" type="com.demo.Model.Flag">
+        <id property="id" column="fid"></id>
+        <result property="flagname" column="flagname"></result>
+        <result property="flagbutton" column="flagbutton"></result>
+    </resultMap>
+
+    <!--    查询个人订单-->
+    <select id="selectorderone" resultMap="wei1">
+        SELECT o.id, o.orderid,o.goods, o.time, t.id as tid,t.type ,u.id as uid ,u.`name`,u.sex,u.age,f.id as fid,f.flagname,f.flagbutton
+        FROM orders o
+        inner join type t on o.typeid=t.id
+        inner join user u on  u.id=o.uid
+        INNER JOIN flag f on  o.flag=f.id
+        where o.uid=#{uid}
+    </select>
+
+    <!--    查询所有已处理药方单-->
+    <resultMap id="predemo" type="com.demo.Model.Prescription_drug">
+        <id property="id" column="pid"></id>
+        <result property="goods" column="ppgoods"></result>
+        <association property="oid" resultMap="orderdemo"></association>
+        <association property="doctor" resultMap="doctordemo"></association>
+        <association property="drug" resultMap="drugdemo"></association>
+    </resultMap>
+    <!--    查询处方预约订单-->
+    <resultMap id="orderdemo" type="com.demo.Model.Order">
+        <id property="id" column="oid"></id>
+        <result property="orderid" column="orderid"></result>
+        <result property="goods" column="goods"></result>
+        <association property="user" resultMap="userdemo"></association>
+        <association property="type" resultMap="typedemo"></association>
+    </resultMap>
+    <!--    查询处方对应病人-->
+    <resultMap id="userdemo" type="com.demo.Model.User">
+        <id property="id" column="uid"></id>
+        <result property="name" column="uname"></result>
+    </resultMap>
+    <!--    查询处方医生-->
+    <resultMap id="doctordemo" type="com.demo.Model.Doctor">
+        <result property="name" column="dname"></result>
+    </resultMap>
+    <!--    查询处方相关科室-->
+    <resultMap id="typedemo" type="com.demo.Model.Type">
+        <id property="id" column="typeid"></id>
+        <result property="type" column="tname"></result>
+    </resultMap>
+    <!--    查询处方药品-->
+    <resultMap id="drugdemo" type="com.demo.Model.Drug">
+        <result property="name" column="drugname"></result>
+        <result property="specification" column="specification"></result>
+    </resultMap>
+
+    <select id="preone" resultMap="predemo">
+        SELECT p.id as pid,o.id as oid,o.uid,o.orderid,o.typeid,o.goods,d.`name` as dname,dd.name as drugname,dd.specification ,u.name as uname ,t.type as tname,p.goods as ppgoods
+        FROM `prescription_drug` p
+        INNER JOIN orders o on o.id=p.oid
+        INNER JOIN doctor d on d.id=p.did
+        INNER JOIN drug dd on dd.id=p.drug_id
+        INNER JOIN user u on u.id=o.uid
+        INNER JOIN type t on t.id=o.typeid
+        where o.uid=#{uid}
+    </select>
+
+
+
+</mapper>

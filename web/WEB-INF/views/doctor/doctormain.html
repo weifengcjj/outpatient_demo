@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>『诊所管理系统』</title>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" type="text/css" href="css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <script type="text/javascript" src="js/libs/modernizr.min.js"></script>
+
+    <!--    &lt;!&ndash; 新 Bootstrap 核心 CSS 文件 &ndash;&gt;-->
+    <!--    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <!--    &lt;!&ndash; jQuery文件。务必在bootstrap.min.js 之前引入 &ndash;&gt;-->
+    <!--    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>-->
+
+    <!--    &lt;!&ndash; 最新的 Bootstrap 核心 JavaScript 文件 &ndash;&gt;-->
+    <!--    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+<div class="topbar-wrap white">
+    <div class="topbar-inner clearfix">
+        <div class="topbar-logo-wrap clearfix">
+            <h1 class="topbar-logo none"><a href="/main" class="navbar-brand"></a></h1>
+            <ul class="navbar-list clearfix">
+                <li><a class="on" href="/admindoctormain">首页</a></li>
+            </ul>
+        </div>
+        <div class="top-info-wrap">
+            <ul class="top-info-list clearfix">
+                <li><a href="/admindoctorpersonalMessage">个人信息</a></li>
+                <li><a href="/quit">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container clearfix">
+    <div class="sidebar-wrap">
+        <div class="sidebar-title">
+            <h1>菜单</h1>
+        </div>
+        <div class="sidebar-content">
+            <ul class="sidebar-list">
+                <li>
+                    <a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
+                    <ul class="sub-menu">
+                        <li><a href="/admintypeOrder"><i class="icon-font">&#xe008;</i>科室相关预约</a></li>
+                        <li><a href="/admindoctorprescription"><i class="icon-font">&#xe008;</i>药方单</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--/sidebar-->
+    <div class="main-wrap">
+        <div class="crumb-wrap">
+            <div class="crumb-list"><i class="icon-font">&#xe06b;</i><span>欢迎使用『诊所管理系统』程序</span></div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-title">
+                <h1>快捷操作</h1>
+            </div>
+            <div class="result-content">
+                <div class="short-wrap">
+                    <li><a href="/admintypeOrder"><i class="icon-font">&#xe008;</i>科室相关预约</a></li>
+                    <li><a href="/admindoctorprescription"><i class="icon-font">&#xe008;</i>药方单</a></li>
+                </div>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-title">
+                <h1>系统基本信息</h1>
+            </div>
+            <div class="result-content">
+                <ul class="sys-info-list">
+                    <li>
+                        <label class="res-lab">操作系统</label><span class="res-info">WIN11</span>
+                    </li>
+                    <li>
+                        <label class="res-lab">运行环境</label><span class="res-info">(Win64) Tomcat</span>
+                    </li>
+                    <li>
+                        <label class="res-lab">版本</label><span class="res-info">v-0.1</span>
+                    </li>
+                    <li>
+                        <label class="res-lab">北京时间</label><span class="res-info" id="time"></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">服务器域名/IP</label><span class="res-info">localhost [ 127.0.0.1 ]</span>
+                    </li>
+                    <li>
+                        <label class="res-lab">Host</label><span class="res-info">127.0.0.1</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="result-wrap">
+            <div class="result-title">
+                <h1>使用帮助</h1>
+            </div>
+            <div class="result-content">
+                <ul class="sys-info-list">
+                    <li>
+                        <label class="res-lab">官方交流网站：</label><span class="res-info"><a href="https://www.bilibili.com/" target="_blank">哔哩哔哩</a></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">官方交流QQ群：</label><span class="res-info">0000007</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>
+<script>
+    function time(){
+        var Week,Week_s,Day;
+        Week = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"];
+        var date =  new Date();
+        year = date.getFullYear();//获取年份
+        month = date.getMonth() + 1;//获取月份
+        day = date.getDate();
+        hours = date.getHours();
+        minutes = date.getMinutes();
+        seconds = date.getSeconds();
+        Week_s = date.getDay();
+        document.getElementById("time").innerHTML = year + "年"
+            + month + "月" + day + "日" + "\t" + hours + ":" + minutes +":" + seconds + "\t" + Week[Week_s] ;
+    };
+    setInterval("time()",1000);//每隔1000毫秒会调用一次函数
+</script>

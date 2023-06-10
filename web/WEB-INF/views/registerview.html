@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>注册</title>
+
+    <style type="text/css">
+        html,body {
+            height: 100%;
+        }
+        .box {
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#6699FF', endColorstr='#6699FF'); /*  IE */
+            background-image:linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-o-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-moz-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-webkit-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+            background-image:-ms-linear-gradient(bottom, #6699FF 0%, #6699FF 100%);
+
+            margin: 0 auto;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .login-box {
+            width: 100%;
+            max-width:500px;
+            height: 400px;
+            position: absolute;
+            top: 20%;
+
+            margin-top: -150px;
+            /*设置负值，为要定位子盒子的一半高度*/
+
+        }
+        @media screen and (min-width:500px){
+            .login-box {
+                left: 50%;
+                /*设置负值，为要定位子盒子的一半宽度*/
+                margin-left: -250px;
+            }
+        }
+
+        .form {
+            width: 100%;
+            max-width:500px;
+            height: 275px;
+            margin: 25px auto 0px auto;
+            padding-top: 25px;
+        }
+        .login-content {
+            height: 650px;
+            width: 100%;
+            max-width:500px;
+            background-color: rgba(255, 250, 2550, .6);
+            float: left;
+        }
+
+
+        .input-group {
+            margin: 0px 0px 30px 0px !important;
+        }
+        .form-control,
+        .input-group {
+            height: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 0px !important;
+        }
+        .login-title {
+            padding: 20px 10px;
+            background-color: rgba(0, 0, 0, .6);
+        }
+        .login-title h1 {
+            margin-top: 10px !important;
+        }
+        .login-title small {
+            color: #fff;
+        }
+
+        .link p {
+            line-height: 20px;
+            margin-top: 20px;
+        }
+        .btn-sm {
+            padding: 8px 24px !important;
+            font-size: 16px !important;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="box">
+    <div class="login-box">
+        <div class="login-title text-center">
+            <h1><small>注册</small></h1>
+        </div>
+        <div class="login-content ">
+            <div class="form">
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                <input type="text" id="username" name="username1" class="form-control" placeholder="用户名">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="password" id="password" name="password1" class="form-control" placeholder="密码">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="text" id="name" name="password1" class="form-control" placeholder="姓名">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                性别：<select name="colId" id="sex" class="required">
+                                    <option selected value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12  ">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="text" id="age" name="password1" class="form-control" placeholder="年龄">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group form-actions">
+                        <div class="col-xs-4 col-xs-offset-4 ">
+                            <button id="btn" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-off"></span> 注册</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-6 link">
+                            <p class="text-center remove-margin"><small>有账号了？</small> <a href="/index" ><small>去登录</small></a>
+                            </p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+        $("#btn").click(function () {
+            let username=document.getElementById("username").value;
+            let passaword=document.getElementById("password").value;
+            let name=document.getElementById("name").value;
+            let sex=document.getElementById("sex").value;
+            let age=document.getElementById("age").value;
+            let user={};
+            user.username=username;
+            user.password=passaword;
+            user.name=name;
+            user.sex=sex;
+            user.age=age;
+            $.ajax({
+                url:"/register",
+                type:"POST",
+                dataType:"json",
+                contentType:"application/json",
+                data:JSON.stringify(user),
+                success:function (e){
+                    console.log(e)
+                    alert(e.message);
+                    window.location.href="/index";
+                },
+                error: function (e){
+                    alert('注册有问题');
+                }
+            })
+        });
+
+</script>
